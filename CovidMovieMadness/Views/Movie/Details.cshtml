@@ -1,0 +1,75 @@
+﻿@model CovidMovieMadness.Models.Movie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Create Post", "CreatePost", new { id = Model.MovieID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MovieID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+
+@*@if (Model.Posts != null)
+{
+    <h3>Post From Selected Movie</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>PostID</th>
+            <th>PostContent</th>
+            <th>Rating</th>
+        </tr>
+
+        @foreach (var item in Model.Posts)
+        {
+            <tr>
+                <td></td>
+                <td>
+                    @item.PostID
+                </td>
+                <td>
+                    @item.PostContent
+                </td>
+                <td>
+                    @item.Rating
+                </td>
+            </tr>
+        }
+
+    </table>
+}*@

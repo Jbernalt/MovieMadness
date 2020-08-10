@@ -1,0 +1,129 @@
+﻿@model CovidMovieMadness.ViewModels.MovieIndexData
+
+@{
+    ViewBag.Title = "Movies";
+}
+
+<h2>Movies</h2>
+
+<p>
+    @Html.ActionLink("Create Movie", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Genre</th>
+        <th>Name</th>
+        <th>Year</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Movies)
+    {
+        string selectedRow = "";
+        if (item.MovieID == ViewBag.MovieID)
+        {
+            selectedRow = "success";
+        }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Index", new { id = item.MovieID }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.MovieID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MovieID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MovieID }) |
+                @Html.ActionLink("Create Post", "CreatePost", new { id = item.MovieID })
+            </td>
+        </tr>
+    }
+</table>
+
+
+@*This is showing the selected movies post*@
+@if (Model.Posts != null)
+{
+    <h3>Post From Selected Movie</h3>
+
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>PostID</th>
+            <th>Post Content</th>
+            <th>Rating</th>
+        </tr>
+
+        @foreach (var item in Model.Posts)
+        {
+
+
+            string selectedRow = "";
+            if (item.PostID == ViewBag.PostID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.ActionLink("Select", "Index", new { postID = item.PostID })
+                </td>
+                <td>
+                    @item.PostID
+                </td>
+                <td>
+                    @item.PostContent
+                </td>
+                <td>
+                    @item.Rating
+                </td>
+                <td>
+                    @Html.ActionLink("Edit Post", "EditPost", new { id = item.PostID, id2 = item.Movie.MovieID }) |
+                    @Html.ActionLink("Delete Post", "DeletePost", new { id = item.PostID }) |
+                    @Html.ActionLink("Create Comment", "CreateComment", new { id = item.PostID, id2 = item.Movie.MovieID })
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+
+@*This is showing the selected post comments*@
+@if (Model.Comments != null)
+{
+    <h3>Comments on Post</h3>
+
+    @*foreach (var item in Model.Posts)
+    {
+        @Html.ActionLink("Create Comment", "CreateComment", new { id = item.PostID, id2 = item.Movie.MovieID })
+    }*@
+    <table class="table">
+        <tr>
+            <th>Username</th>
+            <th>Comment Content</th>
+            <th>User Rating</th>
+        </tr>
+        @foreach (var item in Model.Comments)
+        {
+            <tr>
+                <td>
+                    @item.UserName
+                </td>
+                <td>
+                    @item.CommentContent
+                </td>
+                <td>
+                    @item.UserRating
+                </td>
+                <td>
+                    @Html.ActionLink("Edit Comment", "EditComment", new { id = item.CommentID, id2 = item.post.Movie.MovieID, PostID = item.post.PostID }) |
+                    @Html.ActionLink("Delete Comment", "DeleteComment", new { id = item.CommentID, id2 = item.post.Movie.MovieID, PostID = item.post.PostID })
+                </td>
+            </tr>
+        }
+    </table>
+}
